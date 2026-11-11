@@ -1,0 +1,12 @@
+# Edge model: MobileNetV3-Small for phone/TFLite deployment next to a microscope.
+run_name: mobilenet_v3_small
+model: mobilenet_v3_small
+weights: imagenet
+img_size: 128
+batch_size: 64
+epochs_head: 6
+epochs_finetune: 12
+lr_head: 1.0e-3
+lr_finetune: 3.0e-5
+finetune_layers: 60
+split_mode: patient

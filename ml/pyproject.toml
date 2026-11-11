@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "malariascope"
+version = "1.0.0"
+description = "Malaria parasite detection in thin blood-smear cell images: training, evaluation, calibration and explainability."
+readme = "../README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+  "tensorflow>=2.16",
+  "numpy>=1.26",
+  "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+# Everything needed to train / evaluate / export (the API only needs the core deps above).
+train = [
+  "scikit-learn>=1.4",
+  "scipy>=1.11",
+  "matplotlib>=3.8",
+  "pyyaml>=6.0",
+]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+malariascope-train = "malariascope.train:main"
+malariascope-evaluate = "malariascope.evaluate:main"
+malariascope-export = "malariascope.export:main"
+
+[tool.setuptools.packages.find]
+include = ["malariascope*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

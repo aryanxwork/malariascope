@@ -1,0 +1,12 @@
+# Baseline: compact CNN trained from scratch (no pretraining) — what the original project was.
+run_name: baseline_cnn
+model: baseline_cnn
+img_size: 128
+batch_size: 64
+epochs_head: 30
+epochs_finetune: 0
+lr_head: 1.0e-3
+early_stopping_patience: 6
+dropout: 0.3
+split_mode: patient
+target_sensitivity: 0.98

@@ -1,0 +1,6 @@
+# The API reuses the training package's preprocessing + Grad-CAM (single source of truth -> no train/serve skew)
+-e ../ml
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic>=2.6

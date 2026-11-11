@@ -1,0 +1,11 @@
+# CI / laptop smoke test on synthetic images (scripts/make_synthetic_data.py). Not a real result.
+run_name: smoke
+model: baseline_cnn
+data_dir: data/synthetic
+img_size: 64
+batch_size: 32
+epochs_head: 8
+epochs_finetune: 0
+n_folds: 5
+bootstrap_iterations: 200
+gradcam_examples: 8

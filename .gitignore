@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# Data & models (large; reproducible from scripts)
+ml/data/
+data/
+artifacts/runs/
+artifacts/latest/model.keras
+artifacts/latest/tflite/
+*.zip
+
+# Node
+node_modules/
+frontend/dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+!artifacts/README.md
+*.tsbuildinfo

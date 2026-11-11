@@ -1,0 +1,20 @@
+# docker compose up --build   ->   UI http://localhost:8080 · API docs http://localhost:8000/docs
+# Requires a trained model in ./artifacts/latest (run training first, see README).
+services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports: ["8000:8000"]
+    environment:
+      MODEL_DIR: /models/latest
+      CORS_ORIGINS: http://localhost:8080
+    volumes:
+      - ./artifacts:/models:ro
+    restart: unless-stopped
+
+  web:
+    build: ./frontend
+    ports: ["8080:80"]
+    depends_on: [api]
+    restart: unless-stopped

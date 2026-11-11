@@ -1,0 +1,13 @@
+# Ablation: identical to efficientnet_b0.yaml but with a naive random CELL-level split.
+# Expect higher numbers — that gap is the leakage the patient-level split removes.
+run_name: efficientnet_b0
+model: efficientnet_b0
+weights: imagenet
+img_size: 224
+batch_size: 48
+epochs_head: 6
+epochs_finetune: 12
+lr_head: 1.0e-3
+lr_finetune: 1.0e-5
+finetune_layers: 80
+split_mode: cell

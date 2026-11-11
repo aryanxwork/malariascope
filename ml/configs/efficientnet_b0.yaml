@@ -1,0 +1,14 @@
+# Main model: ImageNet-pretrained EfficientNet-B0, two-phase transfer learning, patient-level split.
+run_name: efficientnet_b0
+model: efficientnet_b0
+weights: imagenet
+img_size: 224
+batch_size: 48
+epochs_head: 6
+epochs_finetune: 12
+lr_head: 1.0e-3
+lr_finetune: 1.0e-5
+finetune_layers: 80
+dropout: 0.3
+split_mode: patient
+target_sensitivity: 0.98

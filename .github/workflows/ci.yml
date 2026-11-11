@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ml-and-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: |
+          pip install tensorflow-cpu
+          pip install -e "ml[train,dev]" -r backend/requirements-dev.txt
+      - name: ML unit tests
+        run: pytest -q ml/tests
+      - name: API tests
+        working-directory: backend
+        run: pytest -q
+      - name: End-to-end smoke training on synthetic data
+        working-directory: ml
+        run: |
+          python scripts/make_synthetic_data.py --out data/synthetic --patients 20 --cells 20
+          python -m malariascope.train --config configs/smoke.yaml --output-dir ../artifacts --epochs-head 3 --bootstrap-iterations 50
+          test -f ../artifacts/latest/model.keras && test -f ../artifacts/latest/metrics.json
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run build
